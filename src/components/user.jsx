@@ -3,7 +3,6 @@ import api from "../API"
 
 const Users = () => {
     const [users, setUsers] = useState(api.users.fetchAll());
-    const [count, setCount] = useState(0);
 
     const handleDelete = (userId) => {
     const getUserId = users.map(getId => getId._id)
@@ -11,7 +10,7 @@ const Users = () => {
     }; 
 
     const renderPhrase = (number) => {
-    number = users.map(userLength=>userLength.name).length
+    number = users.map(userLength => userLength.name).length
     
     if (number > 4) 
     return `${number} человек тусанёт с тобой сегодня`
@@ -27,12 +26,13 @@ console.log(users);
     return (
         <>
 <label 
-    className=" btn btn-info btn m-2"
+    className="btn btn-info btn m-2"
     >
     {renderPhrase()}
 </label>
-
-        <table className="table table-dark table-striped">
+        <table 
+        className="table table-dark table-striped"
+        >
   <thead>
     <tr>
       <th scope="col">Имя</th>
@@ -60,7 +60,12 @@ console.log(users);
     <td>{user.profession.name}</td>
     <td>{user.completedMeetings}</td>
     <td>{`5/${user.rate}`}</td>
-    <td><button onClick={() => handleDelete(user)}>Delete</button></td>
+    <td><button
+    className="btn btn-warning"  
+    onClick={() => handleDelete(user)}
+      >
+      Delete
+      </button></td>
     </tr> 
   ))}
     </tbody>
