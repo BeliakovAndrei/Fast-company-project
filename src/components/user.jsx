@@ -53,9 +53,9 @@ console.log(users);
         className={`badge bg-${quality.color} me-1`}
     >
         {quality.name}
-    </span> 
-           
+    </span>    
     ))}
+    
    </td>
     <td>{user.profession.name}</td>
     <td>{user.completedMeetings}</td>
