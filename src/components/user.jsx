@@ -5,21 +5,21 @@ const Users = () => {
     const [users, setUsers] = useState(api.users.fetchAll());
 
     const handleDelete = (userId) => {
-    const getUserId = users.map(getId => getId._id)
-    setUsers((prevState)=> prevState.filter(getUserId=>getUserId!==userId))
+    setUsers((prevState) => prevState.filter((user) => user._id!==user._id))
     }; 
 
-    const renderPhrase = (number) => {
-    number = users.map(userLength => userLength.name).length
+    const renderPhrase = (numberOfPeople) => {
     
-    if (number > 4) 
-    return `${number} человек тусанёт с тобой сегодня`
-    if (number <= 4 && number>1) 
-    return `${number} человека тусанут с тобой сегодня`
-    if (number === 1) 
-    return `${number} человек тусанёт с тобой сегодня`
-    if (number === 0) 
+    if (numberOfPeople > 4) 
+    return `${numberOfPeople} человек тусанёт с тобой сегодня`
+    if (numberOfPeople <= 4 && numberOfPeople > 1) 
+    return `${numberOfPeople} человека тусанут с тобой сегодня`
+    if (numberOfPeople === 1) 
+    return `${numberOfPeople} человек тусанёт с тобой сегодня`
+    if (numberOfPeople === 0) 
     return "Никто не тусанёт с тобой сегодня" 
+    const getTable = document.querySelector(".table")
+    console.log(getTable)
     };
 
 console.log(users);
@@ -28,7 +28,7 @@ console.log(users);
 <label 
     className="btn btn-info btn m-2"
     >
-    {renderPhrase()}
+    {renderPhrase(users.length)}
 </label>
         <table 
         className="table table-dark table-striped"
@@ -62,7 +62,7 @@ console.log(users);
     <td>{`5/${user.rate}`}</td>
     <td><button
     className="btn btn-warning"  
-    onClick={() => handleDelete(user)}
+    onClick={() => handleDelete(user._id)}
       >
       Delete
       </button></td>
