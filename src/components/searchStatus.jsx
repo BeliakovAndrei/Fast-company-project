@@ -12,7 +12,7 @@ const SearchStatus = ({ length }) => {
     return (
         <h2>
             <span
-                className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}
+                className={"badge position-relative " + (length > 0 ? "bg-primary" : "bg-danger")}
             >
                 {length > 0
                     ? `${length + " " + renderPhrase(length)}`
