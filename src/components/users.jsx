@@ -32,7 +32,7 @@ const Users = () => {
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({
-        iter: "name",
+        path : "name",
         order: "asc"
     });
     const handleProfessionSelect = item => {
