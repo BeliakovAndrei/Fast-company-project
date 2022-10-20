@@ -42,7 +42,7 @@ const UserPage = ({ userId }) => {
 };
 
 UserPage.propTypes = {
-    userId: PropTypes.number
+    userId: PropTypes.string
 };
 
 export default UserPage;
