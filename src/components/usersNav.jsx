@@ -3,9 +3,10 @@ import Users from "./users";
 import UserPage from "./userPage";
 import { useParams } from "react-router-dom";
 
-const { userId } = useParams();
 const UsersNav = () => {
-    return userId ? <UserPage /> : <Users />;
+    const params = useParams();
+    const { userId } = params;
+    return <> {userId ? <UserPage userId={userId} /> : <Users />} </>;
 };
 
 export default UsersNav;
