@@ -1,8 +1,8 @@
 import React from "react";
 import NavBar from "./components/navBar";
 import { Route, Switch } from "react-router-dom";
-import Login from "./components/login";
-import Main from "./components/main";
+import Login from "./layouts/login";
+import Main from "./layouts/main";
 import UsersNav from "./components/usersNav";
 
 const App = () => {

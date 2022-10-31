@@ -1,5 +1,5 @@
 import React from "react";
-import Users from "./users";
+import Users from "../layouts/users";
 import UserPage from "./userPage";
 import { useParams } from "react-router-dom";
 

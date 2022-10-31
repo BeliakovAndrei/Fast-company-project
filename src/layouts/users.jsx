@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "./pagination";
+import Pagination from "../components/pagination";
 import PropTypes from "prop-types";
-import GroupList from "./groupList";
+import GroupList from "../components/groupList";
 import API from "../API";
-import SearchStatus from "./searchStatus";
-import UserTable from "./usersTable";
+import SearchStatus from "../components/searchStatus";
+import UserTable from "../components/usersTable";
+import SearchInput from "./searchInput";
 import _ from "lodash";
 
 const Users = () => {
@@ -35,7 +36,7 @@ const Users = () => {
         path: "name",
         order: "asc"
     });
-    const handleProfessionSelect = item => {
+    const handleProfessionSelect = (item) => {
         setSelectedProf(item);
     };
 
@@ -52,11 +53,7 @@ const Users = () => {
         return [...items].splice(startIndex, pageSize);
     };
     useEffect(() => {
-        API.professions.fetchAll().then((data) =>
-            setProfessions(
-                data
-            )
-        );
+        API.professions.fetchAll().then((data) => setProfessions(data));
     }, []);
     useEffect(() => {
         setCurrentPage(1);
@@ -65,13 +62,17 @@ const Users = () => {
     if (users) {
         const filteredUsers = selectedProf
             ? users.filter(
-                (user) =>
-                    JSON.stringify(user.profession) ===
-                    JSON.stringify(selectedProf)
-            )
+                  (user) =>
+                      JSON.stringify(user.profession) ===
+                      JSON.stringify(selectedProf)
+              )
             : users;
         const count = filteredUsers.length;
-        const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+        const sortedUsers = _.orderBy(
+            filteredUsers,
+            [sortBy.path],
+            [sortBy.order]
+        );
         const userCrop = paginate(sortedUsers, currentPage, pageSize);
         const clearFilter = () => {
             setSelectedProf();
@@ -82,16 +83,23 @@ const Users = () => {
                 {professions && (
                     <div className="d-flex flex-column flex-shrink-0 p-3">
                         <GroupList
-                            selectedItem ={selectedProf}
-                            items ={professions}
-                            onItemSelect ={handleProfessionSelect}
+                            selectedItem={selectedProf}
+                            items={professions}
+                            onItemSelect={handleProfessionSelect}
                         />
-                        <button className="btn btn-secondary mt-2"
-                            onClick={clearFilter}>Очистить</button>
+                        <button
+                            className="btn btn-secondary mt-2"
+                            onClick={clearFilter}
+                        >
+                            Очистить
+                        </button>
                     </div>
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <div className="d-flex flex-column">
+                        <SearchInput />
+                    </div>
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
