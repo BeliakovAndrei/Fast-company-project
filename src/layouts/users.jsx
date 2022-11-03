@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "../components/pagination";
+import Pagination from "../components/common/pagination";
 import PropTypes from "prop-types";
-import GroupList from "../components/groupList";
+import GroupList from "../components/common/groupList";
 import API from "../API";
-import SearchStatus from "../components/searchStatus";
-import UserTable from "../components/usersTable";
-import SearchInput from "./searchInput";
+import SearchStatus from "../components/ui/searchStatus";
+import UserTable from "../components/ui/usersTable";
+import SearchInput from "../components/ui/searchInput";
 import _ from "lodash";
 
 const Users = () => {
     const pageSize = 4;
-
     const [users, setUsers] = useState();
     useEffect(() => {
         API.users.fetchAll().then((data) => setUsers(data));
@@ -59,13 +58,26 @@ const Users = () => {
         setCurrentPage(1);
     }, [selectedProf]);
 
+    const [search, setSearch] = useState("");
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+        setSelectedProf(undefined);
+        console.log(e.target.value);
+    };
+
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = search
             ? users.filter(
                   (user) =>
+                      user.name.toLowerCase().indexOf(search.toLowerCase()) > -1
+              )
+            : selectedProf
+            ? users.filter((user) => {
+                  return (
                       JSON.stringify(user.profession) ===
                       JSON.stringify(selectedProf)
-              )
+                  );
+              })
             : users;
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
@@ -98,7 +110,7 @@ const Users = () => {
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
                     <div className="d-flex flex-column">
-                        <SearchInput />
+                        <SearchInput value={search} onChange={handleSearch} />
                     </div>
                     {count > 0 && (
                         <UserTable
