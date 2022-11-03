@@ -109,9 +109,7 @@ const Users = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
-                    <div className="d-flex flex-column">
-                        <SearchInput value={search} onChange={handleSearch} />
-                    </div>
+                    <SearchInput value={search} onChange={handleSearch} />
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
