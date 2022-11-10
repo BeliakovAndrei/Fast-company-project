@@ -5,22 +5,28 @@ import API from "../../API";
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multySelectField";
-import CheckBoxField from "../common/form/checkBoxField";
 
-const RegisterForm = () => {
+const EditUser = () => {
     const [data, setData] = useState({
         email: "",
-        password: "",
+        name: "",
         profession: "",
         sex: "Male",
-        qualities: [],
-        licence: false
+        qualities: []
     });
+    const [user, setUser] = useState([]);
     const [qualities, setQualities] = useState({});
     const [professions, setProfessions] = useState([]);
     const [errors, setErrrors] = useState({});
 
     useEffect(() => {
+        API.users.fetchAll().then((data) => {
+            const userList = Object.keys(data).map((userName) => ({
+                label: data[userName].name,
+                value: data[userName]._id
+            }));
+            setProfessions(userList);
+        });
         API.professions.fetchAll().then((data) => {
             const professionsList = Object.keys(data).map((professionName) => ({
                 label: data[professionName].name,
@@ -47,39 +53,19 @@ const RegisterForm = () => {
     const validatorConfig = {
         email: {
             isRequired: {
-                message: "Электронная почта обязательна для заполнения"
+                message: "Введите ваш email"
             },
             isEmail: {
                 message: "Email введен некорректно"
             }
         },
-        password: {
-            isRequired: {
-                message: "Пароль обязателен для заполнения"
-            },
-            isCapitalSymbol: {
-                message: "Пароль должен содержать хотябы одну заглавную букву"
-            },
-            isContainDigit: {
-                message: "Пароль должен содержать хотябы одно число"
-            },
-            min: {
-                message: "Пароль должен состоять минимум из 8 символов",
-                value: 8
-            }
-        },
         profession: {
             isRequired: {
-                message: "Обязательно выберите Вашу профессию"
-            }
-        },
-        licence: {
-            isRequired: {
-                message:
-                    "Вы не можете использовать наш сервис без подтверждения"
+                message: "Выберите Вашу профессию"
             }
         }
     };
+
     useEffect(() => {
         validate();
     }, [data]);
@@ -100,6 +86,14 @@ const RegisterForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <TextField
+                label="Имя"
+                type="text"
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                error={errors.name}
+            />
+            <TextField
                 label="Электронная почта"
                 type="text"
                 name="email"
@@ -107,14 +101,7 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 error={errors.email}
             />
-            <TextField
-                label="Пароль"
-                type="password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                error={errors.password}
-            />
+
             <SelectField
                 label="Выбери свою профессию"
                 name="profession"
@@ -142,22 +129,15 @@ const RegisterForm = () => {
                 name="qualities"
                 label="Выберите Ваши качества"
             />
-            <CheckBoxField
-                value={data.licence}
-                onChange={handleChange}
-                name="licence"
-                error={errors.licence}
-            >
-                Подтвердить <a>лицензионное соглашение</a>
-            </CheckBoxField>
             <button
                 type="submit"
                 disabled={!isValid}
                 className="btn btn-primary w-100 mx-auto"
+                //Сделать - перенаправить на страницу пользователя при подверждении
             >
-                Submit
+                Обновить
             </button>
         </form>
     );
 };
-export default RegisterForm;
+export default EditUser;

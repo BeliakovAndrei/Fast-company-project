@@ -20,6 +20,7 @@ module.exports = {
       { anonymous: "always", named: "never" },
     ],
     "multiline-ternary": ["off"],
+    "object-shorthand": ["off"],
     quotes: [
       "error",
       "double",

@@ -79,6 +79,7 @@ const Users = () => {
                   );
               })
             : users;
+
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,

@@ -16,7 +16,7 @@ const UserPage = ({ userId }) => {
     return user ? (
         <div>
             <h2>Имя: {user.name}</h2>
-            <h3>Профессия: {user.professions}</h3>
+            <h3>Профессия: {user.profession.name}</h3>
             <h4>
                 {" "}
                 Качества:
