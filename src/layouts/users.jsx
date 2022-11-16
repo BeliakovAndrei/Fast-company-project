@@ -36,6 +36,7 @@ const Users = () => {
         order: "asc"
     });
     const handleProfessionSelect = (item) => {
+        if (search !== "") setSearch("");
         setSelectedProf(item);
     };
 
