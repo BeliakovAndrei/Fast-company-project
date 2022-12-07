@@ -122,9 +122,9 @@ const UserEdit = ({ userId }) => {
         const { profession, qualities } = data;
         API.users
             .update(userId, {
+                ...data,
                 profession: getProfessionById(profession),
-                qualities: getQualities(qualities),
-                ...data
+                qualities: getQualities(qualities)
             })
             .finally(history.goBack());
         console.log({
@@ -166,11 +166,11 @@ const UserEdit = ({ userId }) => {
                                 value={data.profession}
                             />
                             <RadioField
-                                defaultOption="Male"
+                                defaultOption="male"
                                 options={[
-                                    { name: "Male", value: "Male" },
-                                    { name: "Female", value: "Female" },
-                                    { name: "Other", value: "Other" }
+                                    { name: "Male", value: "male" },
+                                    { name: "Female", value: "female" },
+                                    { name: "Other", value: "other" }
                                 ]}
                                 value={data.sex}
                                 name="sex"
